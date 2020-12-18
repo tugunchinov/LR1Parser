@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_set>
 #include <utility>
+#include <vector>
 
 template <typename T>
 using Set = std::unordered_set<T>;
@@ -26,22 +27,23 @@ namespace std {
 class Grammar {
  public:
   explicit Grammar() = default;
-  explicit Grammar(const Set<char>& terminals,
-                   const Set<char>& nonterminals,
-                   const Set<ProductionRule>& production_rules,
-                   const char start): terminals_(terminals),
-                                       nonterminals_(nonterminals),
-                                       production_rules_(production_rules),
-                                       start_(start) {};
+  explicit Grammar(Set<char> terminals,
+                   Set<char> nonterminals,
+                   std::vector<ProductionRule> production_rules,
+                   const char start):
+                     terminals_(std::move(terminals)),
+                     nonterminals_(std::move(nonterminals)),
+                     production_rules_(std::move(production_rules)),
+                     start_(start) {};
 
   [[nodiscard]] char GetStartSymbol() const;
   [[nodiscard]] Set<char> GetNonTerminals() const;
   [[nodiscard]] Set<char> GetTerminals() const;
-  [[nodiscard]] Set<ProductionRule> GetProductionRules() const;
+  [[nodiscard]] std::vector<ProductionRule> GetProductionRules() const;
  private:
   Set<char> terminals_ = {};
   Set<char> nonterminals_ = {};
-  Set<ProductionRule> production_rules_ = {};
+  std::vector<ProductionRule> production_rules_ = {};
   char start_ = '\0';
 };
 

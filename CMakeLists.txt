@@ -12,6 +12,6 @@ add_library(LR1Parser SHARED src/Grammar.cpp src/LR1Parser.cpp)
 add_executable(ParserExecutable main.cpp)
 target_link_libraries(ParserExecutable LR1Parser)
 
-add_executable(CTest test/build_table_test.cpp)
+add_executable(CTest test/parsing_tests.cpp)
 target_link_libraries(CTest gtest gtest_main LR1Parser)
 

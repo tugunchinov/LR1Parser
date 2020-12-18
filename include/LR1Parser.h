@@ -40,13 +40,13 @@ namespace std {
 
 using State = Set<Situation>;
 
-struct Accepted {};
+struct Accept {};
 enum {
-  INT,
-  PRODUCTION_RULE,
-  ACCEPTED
+  SHIFT,
+  REDUCE,
+  ACCEPT
 };
-using Action = std::variant<int, ProductionRule, Accepted>;
+using Action = std::variant<int, ProductionRule, Accept>;
 
 class LR1Parser {
  public:
@@ -65,8 +65,11 @@ class LR1Parser {
   std::vector<State> states_;
   Set<char> nonterminals_;
   Set<char> terminals_;
-  Set<ProductionRule> production_rules_;
-  const char new_start_ = '$';
+  std::vector<ProductionRule> production_rules_;
+  const char new_start_ = '$';  // doesn't matter ?
+  bool IsNonTerminal_(const char symbol) const;
+
+  bool IsTerminal_(const char symbol) const;
 };
 
 

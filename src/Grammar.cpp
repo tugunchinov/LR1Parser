@@ -8,7 +8,7 @@ Set<char> Grammar::GetTerminals() const {
   return terminals_;
 }
 
-Set<ProductionRule> Grammar::GetProductionRules() const {
+std::vector<ProductionRule> Grammar::GetProductionRules() const {
   return production_rules_;
 }
 
